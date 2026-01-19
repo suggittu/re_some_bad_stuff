@@ -1,0 +1,1 @@
+Questa funzione fa un encoding di un array ogni volta diverso per ogni istanza del processo, facendo uso di __bss_start.
