@@ -1,0 +1,2 @@
+Questa funzione fa un encoding(o decoding) di un array ogni volta diverso per ogni istanza del processo, facendo uso di __bss_start.
+Il fatto che si chiaa unpacker_unpack farebbe suggerire che potrebbe essere usata per nascondere parti di codice.
