@@ -11,7 +11,7 @@ void make_rotation(uint32_t* data) {
 
     uint32_t uVar1, uVar2, uVar3, uVar4, uVar5;
 
-    // The logic extracted from the decompilation:
+
     uVar4 = d;
     uVar3 = b;
     uVar1 = c + uVar4;
@@ -32,7 +32,7 @@ void make_rotation(uint32_t* data) {
     data[2] = ROTL32(uVar5, 5) ^ uVar4 ^ uVar3; // param_1 + 0x8
     data[0] = ROTL32(uVar3, 19);               // param_1 + 0x0
     data[3] = ROTL32(uVar1, 9);                // param_1 + 0xc (uVar1 * 0x200 is << 9)
-    data[1] = uVar4 ^ uVar1;                   // param_1 + 0x4
+    data[1] = uVar4 ^ uVar1;                   
 }
 
 // Global or external state mentioned in decompilation as "start_as_zero"
@@ -163,7 +163,6 @@ uint32_t hasher(uint8_t *buf, int len) {
         local_48 += 0x61c88647;
     }
 
-    // Final result calculation
     uVar1 = ROTL32(uVar4, 7) ^ uVar1;
     uVar9 = ROTL32(uVar1, 11) ^ uVar9;
     uVar8 = ROTL32(uVar9, 17) ^ uVar10 ^ uVar8;
@@ -238,3 +237,8 @@ for (int i = 0; i < num_apis; i++)
     printf("API: %-25s | Hash: 0x%08X\n", api_name, hash_result);
 }
 }
+
+
+//(shell.dll)"CommandLineToArgvW", "DoEnvironmentSubstA", "DoEnvironmentSubstW", "DragAcceptFiles", "DragFinish", "DragQueryFile", "DragQueryFileA", "DragQueryFileW", "DragQueryPoint", "DuplicateIcon", "ExtractAssociatedIconA", "ExtractAssociatedIconW", "ExtractIconA", "ExtractIconExA", "ExtractIconExW", "ExtractIconW", "FindExecutableA", "FindExecutableW", "SHAppBarMessage", "SHBrowseForFolderA", "SHBrowseForFolderW", "SHCreateDirectoryExA", "SHCreateDirectoryExW", "SHCreateProcessAsUserW", "SHEmptyRecycleBinA", "SHEmptyRecycleBinW", "ShellAboutA", "ShellAboutW", "ShellExecuteA", "ShellExecuteExA", "ShellExecuteExW", "ShellExecuteW", "Shell_NotifyIconA", "Shell_NotifyIconW", "SHFileOperationA", "SHFileOperationW", "SHGetDesktopFolder", "SHGetFileInfoA", "SHGetFileInfoW", "SHGetFolderPathA", "SHGetFolderPathW", "SHGetKnownFolderPath", "SHGetMalloc", "SHGetPathFromIDListA", "SHGetPathFromIDListW", "SHGetSpecialFolderLocation", "SHGetSpecialFolderPathA", "SHGetSpecialFolderPathW", "SHOpenFolderAndSelectItems", "SHQueryRecycleBinA", "SHQueryRecycleBinW"
+//dll)"CreateFileA","CreateFileW","ReadFile","WriteFile","DeleteFileW","MoveFileExW","GetFileInformationByHandle","CreateProcessA","CreateProcessW","ShellExecuteExW","CreateThread","_beginthreadex","ExitProcess","TerminateProcess","VirtualAlloc","VirtualProtect","VirtualFree","HeapAlloc","HeapFree","malloc","free","LoadLibraryA","LoadLibraryW","GetProcAddress","FreeLibrary","RegOpenKeyExW","RegQueryValueExW","RegSetValueExW","RegCloseKey","Sleep","WaitForSingleObject","WaitForMultipleObjects","CreateMutexW","ReleaseMutex","IsDebuggerPresent","CheckRemoteDebuggerPresent","GetExitCodeProcess","GetCurrentProcessId","socket","connect","send","recv","GetStdHandle","ReadConsoleW","WriteConsoleW"
+//user32 "AdjustWindowRect", "AdjustWindowRectEx", "AppendMenuA", "AppendMenuW", "BeginPaint", "CallNextHookEx", "ChangeDisplaySettingsA", "ChangeDisplaySettingsW", "CheckMenuItem", "ChildWindowFromPoint", "ClientToScreen", "CloseWindow", "CopyIcon", "CopyRect", "CreateWindowExA", "CreateWindowExW", "DefWindowProcA", "DefWindowProcW", "DestroyIcon", "DestroyWindow", "DispatchMessageA", "DispatchMessageW", "DrawIcon", "DrawTextA", "DrawTextW", "EnableMenuItem", "EnableWindow", "EndDialog", "EndPaint", "EnumChildWindows", "EnumDisplayDevicesA", "EnumDisplaySettingsW", "EnumWindows", "FillRect", "FindWindowA", "FindWindowExA", "FindWindowExW", "FindWindowW", "GetActiveWindow", "GetAsyncKeyState", "GetClientRect", "GetDC", "GetDesktopWindow", "GetForegroundWindow", "GetKeyState", "GetMessageA", "GetMessageW", "GetParent", "GetSystemMetrics", "GetWindowLongA", "GetWindowLongW", "GetWindowRect", "GetWindowTextA", "GetWindowTextW", "InvalidateRect", "IsWindow", "IsWindowVisible", "KillTimer", "LoadIconA", "LoadIconW", "MessageBoxA", "MessageBoxW", "MoveWindow", "PeekMessageA", "PeekMessageW", "PostMessageA", "PostMessageW", "PostQuitMessage", "RegisterClassExA", "RegisterClassExW", "ReleaseDC", "ScreenToClient", "SendMessageA", "SendMessageW", "SetFocus", "SetForegroundWindow", "SetParent", "SetTimer", "SetWindowLongA", "SetWindowLongW", "SetWindowPos", "SetWindowTextA", "SetWindowTextW", "ShowCursor", "ShowWindow", "SystemParametersInfoA", "SystemParametersInfoW", "TrackMouseEvent", "TranslateMessage", "UpdateWindow"

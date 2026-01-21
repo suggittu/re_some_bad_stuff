@@ -35,7 +35,7 @@ void FUN_00427610(int param_1,byte *param_2,byte *param_3)
   uint local_58;
   int local_54;
   int local_50;
-  uint local_4c;
+  uint to_xor;
   uint local_48;
   uint local_44;
   uint local_40;
@@ -286,7 +286,7 @@ void FUN_00427610(int param_1,byte *param_2,byte *param_3)
     local_54 = 0;
     do {
       uVar16 = 0;
-      local_4c = local_58;
+      to_xor = local_58;
       local_48 = local_5c;
       uVar6 = local_1c;
       uVar20 = local_18;
@@ -309,7 +309,7 @@ void FUN_00427610(int param_1,byte *param_2,byte *param_3)
         if ((int)uVar17 < 0) {
           uVar17 = (uVar17 - 1 | 0xffffffe0) + 1;
         }
-        uVar10 = local_4c & 0x8000001f;
+        uVar10 = to_xor & 0x8000001f;
         if ((int)uVar10 < 0) {
           uVar10 = (uVar10 - 1 | 0xffffffe0) + 1;
         }
@@ -409,7 +409,7 @@ void FUN_00427610(int param_1,byte *param_2,byte *param_3)
         local_44 = local_44 + 1;
         uVar6 = uVar6 + 1;
         local_48 = local_48 + 1;
-        local_4c = local_4c + 1;
+        to_xor = to_xor + 1;
         local_50 = local_50 + 1;
       } while ((int)uVar16 < 0x400);
       local_60 = local_60 + 1;

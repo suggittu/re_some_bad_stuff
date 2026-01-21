@@ -1,5 +1,5 @@
 
-undefined4 allocate_buffer_with_obfuscated_api(undefined4 *param_1,undefined4 *param_2)
+undefined4 call_virtual_alloc(undefined4 *param_1,undefined4 *param_2)
 
 {
   uint8_t uVar1;
