@@ -1,5 +1,5 @@
 
-undefined4 get_api_obfuscated_and_check_stuff(void)
+undefined4 get_system_information(void)
 
 {
 	short *psVar1;
@@ -92,7 +92,7 @@ undefined4 get_api_obfuscated_and_check_stuff(void)
 		success = call_virtual_alloc(&buf, &iStack_20);
 		if ((success == 0) && (buf != (short *)0x0))
 		{
-			success = (*function_147dd28)(return_3b0991ae, 90, buf, 4); //NtQueryInformationProcess la flag 90 (informazioni non troppo utili sul processo)
+			success = (*function_147dd28)(return_3b0991ae, 90, buf, 4); //NtQueryInformationProcess la flag 90 
 			buf = buf;
 			if (0 < export_directory)
 			{
@@ -282,7 +282,7 @@ undefined4 get_api_obfuscated_and_check_stuff(void)
 									}
 								}
 								AddressOfNames = hasher(puVar9, (int)pcVar14);
-								if (AddressOfNames == 0x1d499ba0)// ancora virtualfree 
+								if (AddressOfNames == 0x1d499ba0)// ancora virtualfree per liberare il nuovo risulato di NtqueryInformationProcess
 								{
 									function_1d499ba0= (code *)(*(int *)(AddressOfnameOrdinals +
 																(uint) * (ushort *)(iStack_20 + uVar18 * 2) * 2) +
@@ -295,7 +295,7 @@ undefined4 get_api_obfuscated_and_check_stuff(void)
 					}
 					function_1d499ba0= (code *)0x0;
 				LAB_004275b9:
-					(*function_3b0991ae)(dll_base, 0, 0x8000);
+					(*function_1d499ba0)(dll_base, 0, 0x8000);// ancora virtualfree per liberare il nuovo risulato di NtqueryInformationProcess
 				}
 			}
 			uVar18 = 0;
@@ -327,7 +327,7 @@ LAB_004272c2:
 			uVar2 = puVar9[len + 1];
 		}
 	}
-	iVar7 = hasher(puVar9, len);
+	iVar7 = hasher(puVar9, len); //sempre virtual free
 	if (iVar7 == 0x1d499ba0)
 	{
 		function_1d499ba0= (*((int)dll_base + (uint)(ushort)AddressOfnameOrdinals[uVar18] * 4 + AddressOfNames) +
@@ -340,7 +340,7 @@ LAB_004272c2:
 	LAB_004272f1:
 		function_1d499ba0= (code *)0x0;
 	LAB_004272f3:
-		(*function_3b0991ae)(buf, 0, 0x8000);
+		(*function_1d499ba0)(buf, 0, 0x8000);
 		return 1;
 	}
 	goto LAB_004272c2;

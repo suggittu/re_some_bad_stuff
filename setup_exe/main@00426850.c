@@ -9,7 +9,7 @@ undefined4 main(void)
   int iVar5;
   uint8_t *buffer;
   int hash_function;
-  code *pcVar6;
+  code *sleep;
   uint uVar7;
   int unaff_FS_OFFSET;
   short *table_export;
@@ -17,7 +17,7 @@ undefined4 main(void)
   execute_function_at_random();
   execute_function_at_random();
   execute_function_at_random();
-  iVar5 = get_api_obfuscated_and_check_stuff();
+  iVar5 = get_system_information(); //probabilmente cerca se si è in una macchina virtuale perché alcune chiamate di sistema si possono fare solo là
   if (iVar5 != 0) {
     execute_function_at_random();
     execute_function_at_random();
@@ -50,8 +50,9 @@ undefined4 main(void)
           }
         }
         hash_function = hasher(buffer,hash_function);
-        if (hash_function == -0x49489fb2) {
-          pcVar6 = (code *)(*(int *)((int)table_export +
+        if (hash_function == -0x49489fb2) //sleep
+        {
+          sleep = (code *)(*(int *)((int)table_export +
                                     (uint)*(ushort *)((int)table_export + uVar7 * 2 + iVar4) * 4 +
                                     iVar2) + (int)table_export);
           goto LAB_0042693a;
@@ -60,16 +61,20 @@ undefined4 main(void)
       } while (uVar7 < *(uint *)(iVar5 + 0x18));
     }
   }
-  pcVar6 = (code *)0x0;
 LAB_0042693a:
   execute_function_at_random();
   execute_function_at_random();
-  (*pcVar6)(5000);
-  iVar5 = other_api_call();
+  (*sleep)(5000);
+
+
+  iVar5 = other_api_call1(); //non so cosa faccia
+
+
+
   if (iVar5 == 0) {
     execute_function_at_random();
     execute_function_at_random();
-    (*pcVar6)(1000);
+    (*sleep)(1000);
     execute_function_at_random();
     if (((table_export != (short *)0x0) && (*table_export == 0x5a4d)) &&
        ((*(int *)(*(int *)(table_export + 0x1e) + (int)table_export) == 0x4550 &&
@@ -105,10 +110,10 @@ LAB_0042693a:
     }
     execute_function_at_random();
     execute_function_at_random();
-    (*pcVar6)(1000);
+    (*sleep)(1000);
     execute_function_at_random();
     execute_function_at_random();
-    other_api_call();
+    other_api_call2();
   }
   return 0xc0000005;
 }

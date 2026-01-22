@@ -58,7 +58,7 @@ undefined4 call_virtual_alloc(undefined4 *param_1,undefined4 *param_2)
   }
   pcVar5 = (code *)0x0;
 LAB_00426b3b:
-  puVar6 = (undefined1 *)(*pcVar5)(0,iVar9,0x3000,4);
+  puVar6 = (undefined1 *)(*pcVar5)(0,iVar9,0x3000,4); 
   if (puVar6 == (undefined1 *)0x0) {
     return 8;
   }

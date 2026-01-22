@@ -6,9 +6,9 @@ bool other_api_call(void)
   int iVar5;
   uint uVar6;
   int iVar7;
-  code *address_api_1;
+  code *function_4fca2456;
   uint uVar8;
-  code *address_api_2;
+  code *sleep;
   int unaff_FS_OFFSET;
   int local_1c;
   int local_18;
@@ -44,7 +44,7 @@ bool other_api_call(void)
           }
           iVar5 = hasher(puVar4,iVar5);
           if (iVar5 == 0x4fca2456) {
-            address_api_1 =
+            function_4fca2456 =
                  (code *)(*(int *)(local_18 + (uint)*(ushort *)(local_1c + uVar8 * 2) * 4) +
                          (int)base_address);
             goto LAB_00429e71;
@@ -53,7 +53,7 @@ bool other_api_call(void)
         } while (uVar8 < *(uint *)(iVar7 + 0x18));
       }
     }
-    address_api_1 = (code *)0x0;
+    function_4fca2456 = (code *)0x0;
 LAB_00429e71:
     if (((*base_address == 0x5a4d) &&
         (*(int *)(*(int *)(base_address + 0x1e) + (int)base_address) == 0x4550)) &&
@@ -79,7 +79,7 @@ LAB_00429e71:
           }
           iVar5 = hasher(puVar4,iVar5);
           if (iVar5 == -0x49489fb2) {
-            address_api_2 =
+            sleep =
                  (code *)(*(int *)(local_14 +
                                   (uint)*(ushort *)((int)base_address + uVar8 * 2 + iVar2) * 4) +
                          (int)base_address);
@@ -89,13 +89,14 @@ LAB_00429e71:
         } while (uVar8 < *(uint *)(iVar7 + 0x18));
       }
     }
-    address_api_2 = (code *)0x0;
+    sleep = (code *)0x0;
 LAB_00429f03:
-    if ((address_api_1 != (code *)0x0) && (address_api_2 != (code *)0x0)) {
-      (*address_api_1)(local_8);
-      (*address_api_2)(1000);
-      (*address_api_1)(&local_18);
-      uVar6 = (uint)(local_1c - local_14) / 10000;
+    //chiama solo queste due funzioni
+    if ((function_4fca2456 != (code *)0x0) && (sleep != (code *)0x0)) 
+    {
+      (*function_4fca2456)(local_8); //local_8 è un buffer di 8 byte
+      (*sleep)(1000);
+      (*function_4fca2456)(&local_18); //local_18 è un semplice int (probabilmente il decompilatore avrà fatto un errore);
       uVar8 = uVar6 - 1000;
       if (uVar6 < 0x3e9) {
         uVar8 = 1000 - uVar6;
