@@ -229,7 +229,7 @@ void other_api_call2(void)
 								page_allocated = virtual_alloc;
 							} while (function_6a75788 != 0);
 						}
-						FUN_00428590(page_allocated2, 0x80); //probabilmente era una shellcode questa funzione è piena di codide
+						decode_and_execute(page_allocated2, 0x80); //questa fa il decoding dei dati e li esegue
 						if ((page_allocated < page_allocated3) || (page_allocated3 + 0x57000 <= page_allocated))
 						{
 							uVar12 = 0;
@@ -253,7 +253,7 @@ void other_api_call2(void)
 						}
 						(*virtual_free)(page_allocated2, 0, 0x8000); 
 						(*virtual_free)(page_allocated3, 0, 0x8000);//questa sono le rispettive virtualFree
-						returned_virtual_free = (code *)more_api_call(); //more api call ritorna una funzione
+						returned_virtual_free = (code *)more_api_call(); //more api call fa delle ultime chiamate per  chiudere tutto (sempre con la shell o simile)
 						(*returned_virtual_free)(page_allocated);
 						(*virtual_free)(page_allocated, 0, 0x8000);
 						return;

@@ -3,4 +3,5 @@ VirtualFree = 1d499ba0
 NtQueryInformationProcess = 147dd28
 VirtualAlloc = 7fdb33b8
 sleep = 49489fb2
-non trovata (other_api_call1) = 4fca2456
+non trovata (other_api_call1 e main) = 4fca2456
+non trovata (more_api_call) = 6a75788

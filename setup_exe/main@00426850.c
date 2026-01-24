@@ -67,7 +67,7 @@ LAB_0042693a:
   (*sleep)(5000);
 
 
-  iVar5 = other_api_call1(); //non so cosa faccia
+  iVar5 = other_api_call1(); //non mi sembra faccia molto (probabilmete altri controlli)
 
 
 
