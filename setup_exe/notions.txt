@@ -1,0 +1,3 @@
+All' inizio il programma ha le librerie importate a 0, poi le caricherà dopo.
+Carica moltissime librerie. Si inizia da ntdlLdrInitShimEnginedynamic
+che dove normalmente iniziano i binary windows e carica tutte le librerie.
