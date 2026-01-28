@@ -23,7 +23,7 @@ void replaceStringForInt(int param_1)
 		local_10[2] = 0x53;
 		local_10[0] = '\0';
 		local_10[1] = 0xbc;
-		FUN_0014d980(&taken_string, (&arrayDiStringheBase64)[param_1], &local_18);
+		wrapper_add_size(&taken_string, (&arrayDiStringheBase64)[param_1], &local_18);
 		base64_decode(&taken_string);
 		__dest = operator_new__(0x400);
 		pcVar4 = stpcpy(__dest, local_18); // local_18 non viene mai inizializzata
