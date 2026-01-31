@@ -1,0 +1,1 @@
+bisogna trovare la flag che ritorna 0, basta farlo char per char a mano
