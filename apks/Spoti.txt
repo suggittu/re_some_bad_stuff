@@ -1,0 +1,2 @@
+Non parte nella macchina virtuale (Build.FINGERPRINT check,Build.MODEL, checkBuild.MANUFACTURER check, sim operator...)
+Anti debug (Debug.isDebuggerConnected())
