@@ -1,0 +1,21 @@
+CVE-2007-5659_PDF__9BC1735453963E33EA1857CC25AA5A19_SurveyOnObamapdf.pdf=
+CVE-2009-4324_PDF_43CB55861B7FCF1DFB6968C9EF110BCC_Aug2010.pdf=
+Old2008-2010__A6C1595BD7B1A85C42FBD674460DC35D_iprinp.dl_
+ - downloaded from contagiodump.blogspot.com
+
+mspmsnsv.dll
+ - downloaded from contagiodump.blogspot.com
+ - originally in the archive "CVE-2011-0611_2011-04-08_SWF-DOC_Disentangling Industrial Policy-Created Files.zip"
+
+WEBC2-CLOVER_sample_065E63AFDFA539727F63AF7530B22D2F
+WEBC2-CSON_sample_A38A367D6696BA90B2E778A5A4BF98FD
+WEBC2-UGX_sample_8462A62F13F92C34E4B89A7D13A185AD
+ - downloaded from contagiodump.blogspot.com
+ - originally in "APT1_MALWARE_FAMILIES_samples.zip" and "Contagio_APT1.zip"
+
+4a29d41dfda9cfcbcde4d42b4bbb00aa.ex_
+ - downloaded from openmalware.org
+
+nba_implant_exe
+ - implant created from the NetBot Attacker remote access tool
+
