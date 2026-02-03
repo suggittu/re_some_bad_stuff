@@ -1,0 +1,5 @@
+
+replacestringforint prende una intero che è una stringa in base64 in un array e poi ci applica
+uno xor con una chiave da 4 caratteri.
+Inoltre questa funzione veniva chiamata in classi usate da google per sistemare i pacchetti 
+precisamente quella che si occupa di gestire application con più binari
