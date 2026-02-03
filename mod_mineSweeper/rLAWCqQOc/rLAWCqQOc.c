@@ -12,8 +12,8 @@ void Java_ru_anna_chinagame_TJEjihIIS_rLAWCqQOc(_JNIEnv *env, _jclass *target_ob
     _jstring *package_name;
     char *package_name;
     char *pcVar10;
-    _jobject *p_Var11;
-    _jmethodID *p_Var12;
+    _jobject *path_encoded_files;
+    _jmethodID *exists_method;
     _jobjectArray *p_Var13;
 
     if (context == (_jobject *)0x0)
@@ -39,19 +39,19 @@ void Java_ru_anna_chinagame_TJEjihIIS_rLAWCqQOc(_JNIEnv *env, _jclass *target_ob
     pcVar10 = replaceStringForInt(0x1c); // Ljava/lang/String;
     package_name_formatted = make_name(package_name, pcVar10);//diventa così tipo chinagameLjava/lang/String;
 
-    p_Var11 = get_extra_path_entities(env, context, package_name_formatted); //trova i file encodati dentro l'applicazione
+    path_encoded_files = get_extra_path_entities(env, context, package_name_formatted); //trova i file encodati dentro l'applicazione
     io_File_path = replaceStringForInt(0); //java/io/File (classe per interaggire con i file e directory)
     io_File = (**(code **)(*(long *)env + 0x30))(env, io_File_path); //FindClass
-    
-    stringa1 = replaceStringForInt(0x29);
-    stringa2 = replaceStringForInt(0x2a);
-    p_Var12 = (**(*env + 0x108))(env, io_File, stringa1, stringa2);
-    cVar1 = call_exist_method(env, p_Var11, p_Var12);
+
+    stringa1 = replaceStringForInt(0x29); //forse "exists" (presupposizioni perchè queste due stringhe non le ho trovate nel binario)
+    stringa2 = replaceStringForInt(0x2a); //forse "()Z" (vuol dire tipo booleano)
+    exists_method = (**(*env + 0x108))(env, io_File, stringa1, stringa2); //exist è una funzione dentro classe java.io.File 
+    cVar1 = call_exist_method(env, path_encoded_files, exists_method);
     if (cVar1 == '\0')
     {
-        prepare_entity(env, context, p_Var11);
+        prepare_entity(env, context, path_encoded_files);
     }
-    p_Var13 = (_jobjectArray *)(**(code **)(*(long *)env + 0x560))(env, 1, io_File, p_Var11);
+    p_Var13 = (_jobjectArray *)(**(code **)(*(long *)env + 0x560))(env, 1, io_File, path_encoded_files);
     if (0x16 < iVar2)
     {
         installV23(env, target_object, ClassLoader, p_Var13, path_outdex);

@@ -2,7 +2,9 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* call_exist_method(_JNIEnv*, _jobject*, _jmethodID*) */
 
-void call_exist_method(_JNIEnv *param_1,_jobject *param_2,_jmethodID *param_3)
+void call_exist_method(_JNIEnv *param_1,_jobject *param_2,_jmethodID *param_3) 
+//0x130 (CallBooleanMethod): This is the JNI 
+//function that actually executes a Java method that returns a true or false.
 
 {
   long lVar1;
