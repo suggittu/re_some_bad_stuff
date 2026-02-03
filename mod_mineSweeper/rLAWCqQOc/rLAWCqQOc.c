@@ -3,7 +3,7 @@ void Java_ru_anna_chinagame_TJEjihIIS_rLAWCqQOc(_JNIEnv *env, _jclass *target_ob
 
 {
     char cVar1;
-    int iVar2;
+    int api_version;
     undefined8 address_method;
     undefined8 stringa1;
     undefined8 stringa2;
@@ -12,7 +12,7 @@ void Java_ru_anna_chinagame_TJEjihIIS_rLAWCqQOc(_JNIEnv *env, _jclass *target_ob
     _jstring *package_name;
     char *package_name;
     char *pcVar10;
-    _jobject *path_encoded_files;
+    _jobject *file_chinagameLjava/lang/String;
     _jmethodID *exists_method;
     _jobjectArray *p_Var13;
 
@@ -22,16 +22,14 @@ void Java_ru_anna_chinagame_TJEjihIIS_rLAWCqQOc(_JNIEnv *env, _jclass *target_ob
         return;
     }
     checkSignature(env, target_object, context); //controla integrità dell apk (se è stato cambiato qualcosa termina)
-    iVar2 = utils_get_sdk_version(env);
+    api_version = utils_get_sdk_version(env);
     class_of_context = (**(*env + 0xf8))(env, context);//GetStaticMethodID	Locates a static method in a Java class so it can be called later
     stringa1 = replaceStringForInt(1);//getClassLoader (il nome del metodo)
     stringa2 = replaceStringForInt(2);//()Ljava/lang/ClassLoader;(a method that takes no arguments and returns a ClassLoader object, in pratica è il tipo della funzione)
-    getClassLoader = (**(*env + 0x108))(env, class_of_context, stringa1, stringa2);
+    getClassLoader = (**(*env + 0x108))(env, class_of_context, stringa1, stringa2); //all off set 0x108 c'è probabilmente getObject (trova metodo dentro classe)
 
     //*env: This dereferences the JNI environment pointer to access the function table.
-    //0x108 Offset: In the standard JNIEnv table for Android/ARM, the offset 0x108 
-    // usually corresponds to the getClassLoader function
-    //classLoader carica il codice della applicazione
+
     ClassLoader = _JNIEnv::CallObjectMethod(env, context, getClassLoader, 0);
     path_outdex = utils_context_get_dir(env, context, "outdex", 0); //crea una directory dove solo l'app può leggere
     package_name_java = utils_get_package_name(env, context); //ritona il nome del pacchetto come una stringa java
@@ -39,32 +37,32 @@ void Java_ru_anna_chinagame_TJEjihIIS_rLAWCqQOc(_JNIEnv *env, _jclass *target_ob
     pcVar10 = replaceStringForInt(0x1c); // Ljava/lang/String;
     package_name_formatted = make_name(package_name, pcVar10);//diventa così tipo chinagameLjava/lang/String;
 
-    path_encoded_files = get_extra_path_entities(env, context, package_name_formatted); //trova i file encodati dentro l'applicazione
+    file_chinagameLjava/lang/String = get_extra_path_entities(env, context, package_name_formatted); 
     io_File_path = replaceStringForInt(0); //java/io/File (classe per interaggire con i file e directory)
     io_File = (**(code **)(*(long *)env + 0x30))(env, io_File_path); //FindClass
 
     stringa1 = replaceStringForInt(0x29); //forse "exists" (presupposizioni perchè queste due stringhe non le ho trovate nel binario)
-    stringa2 = replaceStringForInt(0x2a); //forse "()Z" (vuol dire tipo booleano)
+    stringa2 = replaceStringForInt(0x2a); //forse "()Z" (vuol dire booleano)
     exists_method = (**(*env + 0x108))(env, io_File, stringa1, stringa2); //exist è una funzione dentro classe java.io.File 
-    cVar1 = call_exist_method(env, path_encoded_files, exists_method);
+    cVar1 = call_exist_method(env, file_chinagameLjava/lang/String, exists_method);
     if (cVar1 == '\0')
     {
-        prepare_entity(env, context, path_encoded_files);
+        prepare_entity(env, context, file_chinagameLjava/lang/String);
     }
-    p_Var13 = (_jobjectArray *)(**(code **)(*(long *)env + 0x560))(env, 1, io_File, path_encoded_files);
-    if (0x16 < iVar2)
+    p_Var13 = (_jobjectArray *)(**(code **)(*(long *)env + 0x560))(env, 1, io_File, file_chinagameLjava/lang/String);
+    if (0x16 < api_version)
     {
         installV23(env, target_object, ClassLoader, p_Var13, path_outdex);
         return;
     }
-    if (0x12 < iVar2)
+    if (0x12 < api_version)
     {
         installV19(env, target_object, ClassLoader, p_Var13, path_outdex);
         return;
     }
-    if (iVar2 < 0xe)
+    if (api_version < 0xe)
     {
-        if (iVar2 < 9)
+        if (api_version < 9)
         {
             return;
         }

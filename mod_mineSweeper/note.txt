@@ -1,5 +1,14 @@
+Questo codice viene chiamato in classi usate da google per sistemare i pacchetti 
+precisamente quella che si occupa di gestire application con più file dex (la libreria si chiama Multidex)
+
 
 replacestringforint prende una intero che è una stringa in base64 in un array e poi ci applica
 uno xor con una chiave da 4 caratteri.
-Inoltre questa funzione veniva chiamata in classi usate da google per sistemare i pacchetti 
-precisamente quella che si occupa di gestire application con più binari
+
+
+/java/io/File probabilmente non è quella originaria (nel codice fa una reference
+ ad un campo che non esiste nel codice originario), lo si può vedere nella funzione prepare_entity (mFiles)
+ //https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/io/File.java (codice originale)
+
+
+ in assets è contenuto un file contenente il codice malevolo
