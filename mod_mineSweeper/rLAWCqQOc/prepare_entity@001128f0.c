@@ -26,7 +26,9 @@ void prepare_entity(_JNIEnv *env, _jobject *context, _jobject *file_chinagameLja
     package_name = (char *)utils_java_string_to_c_string(env, qualcosa_sospetto);
     package_name_dat = (char *)make_name(package_name, ".dat"); //che è un file dentro assets (mod.dat)
 
-    utils_copy_from_assets(env, context, package_name_dat, package_name); //logica dell unpacker (quindi il codice malevolo era dentro tipo packageName.dat)
+    utils_copy_from_assets(env, context, package_name_dat, package_name); //logica dell unpacker (quindi il codice malevolo era dentro tipo packageName.dat o mod.dat)
+    // e viene messo dentro package_name
+
     if (package_name != (char *)0x0)
     {
         operator_delete__(package_name);
