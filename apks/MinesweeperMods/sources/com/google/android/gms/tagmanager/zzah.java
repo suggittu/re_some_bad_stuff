@@ -1,0 +1,10 @@
+package com.google.android.gms.tagmanager;
+
+/* loaded from: classes2.dex */
+interface zzah {
+    boolean zzGA();
+
+    zzag zzgd(String str);
+
+    zzag zzge(String str);
+}

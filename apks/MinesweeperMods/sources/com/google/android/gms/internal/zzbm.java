@@ -1,0 +1,21 @@
+package com.google.android.gms.internal;
+
+import android.text.TextUtils;
+
+@zzhb
+/* loaded from: classes2.dex */
+public final class zzbm {
+    private String zzvq;
+
+    public zzbm() {
+        this((String) zzbt.zzvB.zzdq());
+    }
+
+    public zzbm(String str) {
+        this.zzvq = TextUtils.isEmpty(str) ? (String) zzbt.zzvB.zzdq() : str;
+    }
+
+    public final String zzdp() {
+        return this.zzvq;
+    }
+}

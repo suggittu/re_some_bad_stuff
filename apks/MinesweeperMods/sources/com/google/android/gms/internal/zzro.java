@@ -1,0 +1,62 @@
+package com.google.android.gms.internal;
+
+import android.support.annotation.Nullable;
+import com.google.android.gms.common.api.Api;
+
+/* loaded from: classes2.dex */
+public final class zzro implements Api.ApiOptions.Optional {
+    public static final zzro zzbgV = new zza().zzFJ();
+    private final boolean zzXa;
+    private final boolean zzXc;
+    private final String zzXd;
+    private final String zzXe;
+    private final boolean zzbgW;
+    private final boolean zzbgX;
+
+    public final class zza {
+        private String zzbdY;
+        private boolean zzbgY;
+        private boolean zzbgZ;
+        private boolean zzbha;
+        private String zzbhb;
+        private boolean zzbhc;
+
+        public final zzro zzFJ() {
+            return new zzro(this.zzbgY, this.zzbgZ, this.zzbdY, this.zzbha, this.zzbhb, this.zzbhc);
+        }
+    }
+
+    private zzro(boolean z, boolean z2, String str, boolean z3, String str2, boolean z4) {
+        this.zzbgW = z;
+        this.zzXa = z2;
+        this.zzXd = str;
+        this.zzXc = z3;
+        this.zzbgX = z4;
+        this.zzXe = str2;
+    }
+
+    public final boolean zzFH() {
+        return this.zzbgW;
+    }
+
+    public final boolean zzFI() {
+        return this.zzbgX;
+    }
+
+    public final boolean zzmO() {
+        return this.zzXa;
+    }
+
+    public final boolean zzmQ() {
+        return this.zzXc;
+    }
+
+    public final String zzmR() {
+        return this.zzXd;
+    }
+
+    @Nullable
+    public final String zzmS() {
+        return this.zzXe;
+    }
+}

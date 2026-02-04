@@ -1,0 +1,45 @@
+package com.google.android.gms.wearable;
+
+import android.net.Uri;
+import android.os.Parcelable;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Releasable;
+import com.google.android.gms.common.api.Result;
+import com.google.android.gms.wearable.ChannelApi;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+/* loaded from: classes2.dex */
+public interface Channel extends Parcelable {
+
+    public interface GetInputStreamResult extends Releasable, Result {
+        InputStream getInputStream();
+    }
+
+    public interface GetOutputStreamResult extends Releasable, Result {
+        OutputStream getOutputStream();
+    }
+
+    PendingResult addListener(GoogleApiClient googleApiClient, ChannelApi.ChannelListener channelListener);
+
+    PendingResult close(GoogleApiClient googleApiClient);
+
+    PendingResult close(GoogleApiClient googleApiClient, int i);
+
+    PendingResult getInputStream(GoogleApiClient googleApiClient);
+
+    String getNodeId();
+
+    PendingResult getOutputStream(GoogleApiClient googleApiClient);
+
+    String getPath();
+
+    PendingResult receiveFile(GoogleApiClient googleApiClient, Uri uri, boolean z);
+
+    PendingResult removeListener(GoogleApiClient googleApiClient, ChannelApi.ChannelListener channelListener);
+
+    PendingResult sendFile(GoogleApiClient googleApiClient, Uri uri);
+
+    PendingResult sendFile(GoogleApiClient googleApiClient, Uri uri, long j, long j2);
+}

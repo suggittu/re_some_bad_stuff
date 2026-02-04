@@ -1,0 +1,37 @@
+package com.google.android.gms.ads.internal.formats;
+
+import android.content.Context;
+import android.view.MotionEvent;
+import android.view.View;
+import java.util.Map;
+import org.json.JSONObject;
+
+/* loaded from: classes2.dex */
+public interface zzh {
+
+    public interface zza {
+        String getCustomTemplateId();
+
+        void zzb(zzh zzhVar);
+
+        String zzdM();
+
+        com.google.android.gms.ads.internal.formats.zza zzdN();
+    }
+
+    Context getContext();
+
+    void recordImpression();
+
+    void zza(View view, Map map, JSONObject jSONObject, JSONObject jSONObject2, JSONObject jSONObject3);
+
+    void zza(String str, JSONObject jSONObject, JSONObject jSONObject2, JSONObject jSONObject3);
+
+    void zzb(MotionEvent motionEvent);
+
+    View zzdS();
+
+    void zzh(View view);
+
+    void zzi(View view);
+}
