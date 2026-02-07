@@ -12,3 +12,8 @@ uno xor con una chiave da 4 caratteri.
 
 
  in assets è contenuto un file contenente il codice malevolo
+
+||--------------------- ATTACK FLOW --------------------||
+se esiste i file dexElements sono stati creati (nelle esecuzione di Multidex) allora si procede
+a chiamare prepare_entity() -> che cerca il file contenente il codice malevolo e lo copia dentro
+un file che si chiamerà $package_name.dat

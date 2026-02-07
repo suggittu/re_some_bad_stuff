@@ -72,7 +72,9 @@ encoded_strings = [
     "W/A5CnZhL3V0aWwvemlwL1ppcEZpbGU7",
     "bfg2E3M=",
     "W/A3Cmx2aWsvc3lzdGVtL0RleEZpbGU7",
-    "ZcQ6GHRz"
+    "ZcQ6GHRz",
+
+
 ]
 
 print(f"{'INDEX':<5} | {'DECODED STRING'}")

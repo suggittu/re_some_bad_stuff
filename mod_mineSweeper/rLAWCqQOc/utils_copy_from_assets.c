@@ -4,7 +4,7 @@ void utils_copy_from_assets(_JNIEnv *env, _jobject *context, char *package_name_
     undefined8 uVar1;
     long file_reference;
     void *buf;
-    void *decode_result;
+    void *decoded_result;
     ulong uVar5;
     ulong lenght;
     long local_8;
@@ -23,12 +23,12 @@ void utils_copy_from_assets(_JNIEnv *env, _jobject *context, char *package_name_
     {
         lenght = AAsset_getLength();
         buf = operator.new[](lenght);
-        AAsset_read(file_reference, buf, lenght);
-        decode_result = (void *)unpacker_unpack(buf, &lenght);
-        lenght = utils_save_raw(package_name, decode_result, lenght);
-        if (decode_result != (void *)0x0)
+        AAsset_read(file_reference, buf, lenght);//ora il contenuto è dentro buf
+        decoded_result = (void *)unpacker_unpack(buf, &lenght);
+        lenght = utils_save_raw(package_name, decoded_result, lenght); //qui finalmente mette il risultato dentro il file creato
+        if (decoded_result != (void *)0x0)
         {
-            operator.delete[](decode_result);
+            operator.delete[](decoded_result);
         }
         AAsset_close(file_reference);
         operator.delete[](buf);

@@ -2,39 +2,26 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* unpacker_unpack(void*, unsigned long*, unsigned int) */
 
-void unpacker_unpack(char *array_address, ulong *number_elements, uint __bss_start)
+void unpacker_unpack(char *buf, int *ref_size,char *key)
 
 {
 	int iVar1;
-	void *pvVar2;
-	ulong number_elements_copy;
-	ulong uVar4;
-	local_10 = random_value;
+	int size;
+	char key;
 
-	circle_xor(array_address, *number_elements, 0);
-	number_elements_copy = *number_elements;
-	if (number_elements_copy == 0)
+	int real_size_of_file;
+
+	circle_xor(buf, *ref_size, 0);
+	size = *ref_size;
+	if (size == 0)
 	{
-		pvVar2 = (void *)0x0;
+		return;
 	}
-	else
+	for (int i = 1; i < size; i++)
 	{
-		for(int i = 0; i < number_elements; i++)
-		{
-			xor_array(array_address, number_elements_copy, i, &local_10);
-			number_elements_copy = *number_elements;
-		}
-		uVar4 = array_address[4] + 5;
-		if (number_elements_copy < uVar4)
-		{
-			pvVar2 = (void *)0x0;
-		}
-		else
-		{
-			number_elements_copy = number_elements_copy - uVar4;
-			pvVar2 = operator_new__(number_elements_copy);
-			pvVar2 = memcpy(pvVar2, (void *)((long)array_address + uVar4), number_elements_copy);
-			*number_elements = number_elements_copy;
-		}
+		xor_array(buf, size, i-1, &key);
 	}
+	real_size_of_file =  buf[4] + 5;
+	buf.resize(real_size_of_file)
+
 }
