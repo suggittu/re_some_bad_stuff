@@ -1,0 +1,128 @@
+\documentclass[a4paper,11pt]{article}
+%\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenx}
+\usepackage{amsmath}			%alcuni simboli matematici
+\usepackage{amsthm}			%alcuni simboli matematici
+%\usepackage{mathtools}
+%\usepackage{cases} 
+%\usepackage{mathrsfs}
+\usepackage{amssymb}			%alcuni simboli matematici
+%\usepackage{stmaryrd}
+%\usepackage{enumerate}
+%\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{subfig}	%per la grafica
+\usepackage{lineno} 				%per numerare le righe
+\usepackage{setspace} 			%per il doublespacing
+\usepackage[absolute]{textpos}		%per posizionare la prima pagina
+\usepackage[numbers,sort]{natbib}	%bibtex
+%\usepackage{wrapfig}			%per mettere figure a lato testo
+%\usepackage[mathscr]{eucal}
+%\usepackage{eufrak}
+\usepackage{float}
+\renewcommand{\topfraction}{.85}
+\renewcommand{\bottomfraction}{.7}
+\renewcommand{\textfraction}{.15}
+\renewcommand{\floatpagefraction}{.66}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{cor}[thm]{Corollario}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposizione}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definizione}
+
+\theoremstyle{remark}
+\newtheorem{oss}{Osservazione}
+\newtheorem{es}[thm]{Esempio}
+
+\newenvironment{sistema}%
+{\left\lbrace\begin{array}{@{}l@{}}}%
+{\end{array}\right.}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\setlength{\oddsidemargin}{25mm} 
+\setlength{\evensidemargin}{5mm}
+
+\begin{textblock}{0}(2.1,0.9)
+\begin{center}
+\begin{tabular}{c}
+\includegraphics[width=4cm]{unict.png}\\[15pt]
+{\bf\Huge \sc Universit\`{a} degli Studi di Catania}\\[15pt]
+{\bf \huge \sc Corso di Laurea in Matematica} \\[50pt]
+\hline\\[10pt]
+{\sc\Large Davide Terranova}\\[100pt]
+{\sc\huge Reverse Engenierring}\\[150pt]
+
+{\hbox to 4.5truecm{\hrulefill}}\\[5pt]
+{\sc\Large Elaborato Finale}\\
+{\hbox to 4.5truecm{\hrulefill}}\\[90pt]
+
+\hfill \large Relatore: prof. Sergio Esposito\\[10pt]
+\hline\\[10pt]
+\bf \Large Anno Accademico 2025--2026
+\end{tabular}
+\end{center}
+\end{textblock}
+
+
+% Forza la fine della pagina del frontespizio
+\null\newpage 
+
+\tableofcontents
+
+% Forza il passaggio alla pagina successiva dopo l'indice
+\newpage 
+
+
+\section{Introduzione}
+In questa tesi mostrerò il comportamento di alcune applicazione per android e un eseguibile per windows, in quest ultimo mi ci sono imbattuto per puro caso perché venivano spacciati per degli apk per qualche ragione. In tutti questi per comprenderne il comportamento ho quasi totalmente fatto del analisi statica in quanto per vari motivi (spiegerò caso per caso),eseguirli mi è venuto estremamente difficile, eccesione fatta per il file exe che era perfettamente eseguibile in qualsiasi macchina con windows. Per fare l'analisi ho utilizzato quasi totalmente ghidra perchè gli apk analizzati usavano dei binari per il comportamento malevolo
+\section{Background}
+Qua scrivo i vari fondamenti teorici per capire quello che ho scritto.
+\section{Risultati}
+Qui sotto scrivo le varie cose che ho scoperto
+\subsection{MinesweeperMods.apk}
+Questo apk lo trovato in una cartella dentro la macchina virtuale fornita da un corso per analisi di apk appunto, anche se insieme ad altre non sono mai state trattate nel corso, probabilmente una raccolta di possibili applicazioni malevoli. Non avendo trovato su internet qualcuno che avesse fatto l'analisi su questo, ho provata a farla io. Non ho fatto analisi dinamica perchè può girare massimo su Android 6.0 che è molto vecchia e su Android studio non è presente, e quindi lo ho analizzato con jadx e ghidra. Prima cosa sospetta è che alcuni componenti mostrati nel manifesto (android può eseguire solo tutto quello definito lì) non erano presenti nel codice decompilato, cosa che inizialmente avevo considerato come un semplice errore del programmatore. Inoltre uno di questi receiver si attiva quando avviene un cambiamento nel tipo di connessione (si attivano dati mobili o ci si connette ad una rete), il che non implica nulla di per se però è sospetto in un gioco che non dovrebbe essere online. Altra cosa che scopro è che carica una libreria nativa ma stranamente la carina dentro android.support che dovrebbe contenere codice appunto fonito da android per diverse funzionalità, più precisamente viene caricata in multiDex che serve come predice il nome ha gestire applicazioni con più file dex (che sono i "binari" del mondo android dove è contenuto quasi tutto il codice di una applicazione), queste librerie sono tra le prime ad essere eseguite nel lancio dell' applicazione. Venivano dichiarate due applicazioni (ogni funzione usata da codice nativo deve essere dichiarata con una certa firma) quindi inizio ad analizzare le due funzioni, solo dopo aver analizzato la prima mi rendo conto che non veniva usata nel codice però aumentano i sospetti perché faceva il decoding di qualcosa. La seconda funziona quella effettivamente chiamata dentro multiDex chiamata 'rLAWCqQOc' nasconde tutte le stringhe presenti dietro una funzione chiamata replaceStringForInt(Int) la quale prende una stringa da un array con indice quello passato dalla funzione, dentro sono contenute delle stringhe che mi sembravano in base64 perchè alcune aveva un '=' alla fine, riportandole a testo normale più o meno si intuiva fossero delle cose sensate, dopo infatti veniva applicato uno xor con una chiave di 3 caratteri che applica solo una volta quindi la maggior parte della stringa rimane intatta (probabilmente non è stato intenzionale perchè dopo utilizza una logica simile ma su tutto). Avendo queste stringhe posso capire che parametri passa alle funzioni chiamate con la JNI Interface Table.
+
+\begin{figure}[h]
+	\hspace{-2.8cm}
+    \includegraphics[width=1.3\textwidth]{rLAWCqQOc.png} 
+    \caption*{parte codice del entry point}
+    \label{fig:my_image}
+\end{figure}
+
+Qualche riga di codice dopo a quella mostrata in figura chiama una funzione chiamata prepare\_entity
+dove cerca classes2.dex e lo copia in un nuovo file che ha appena creato. E successivamente lo decodifica, lascio qui sotto del codice da me scritto che rappresenta la logica della decodifica.
+
+\enlargethispage{20cm}
+\begin{figure}[H]
+	\hspace{0cm}
+    \includegraphics[width=0.9\textwidth]{unpacker_unpack.png} 
+    \label{fig:my_image}
+\end{figure}
+
+
+
+\eject
+
+
+
+
+
+
+%%Per inserire solo la pagina bianca
+%\thispagestyle{empty}
+%\phantom{ }
+%\eject
+%\thispagestyle{empty}
+%\phantom{ }
+%\eject
+
+\linenumbers 			%attiva il linenumbering (per indicare agevolmente dove fare le correzioni)
+
+\end{document}
