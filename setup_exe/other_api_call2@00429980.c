@@ -163,7 +163,7 @@ void other_api_call2(void)
 			virtual_free = (code *)0x57000;
 			virtual_alloc = (code *)0x0;
 
-			page_allocated = (code *)(*virtual_alloc)(0, 0x57000, 0x3000, 4); //alloca pagine utilizzabili anche come codice
+			page_allocated = (code *)(*uVar12)(0, 0x57000, 0x3000, 4); //alloca pagine utilizzabili anche come codice
 
 
 			if (page_allocated != (code *)0x0)
