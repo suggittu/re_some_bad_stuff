@@ -1,32 +1,16 @@
 
-/* circle_xor(void*, unsigned long, int) */
 
-void circle_xor(char *array_address, int number_elements, int just_zero)
+void circle_xor(char *buf, int size, int flag)
 {
-	byte bVar1;
-	byte *pbVar2;
-	byte *pbVar3;
-	byte bVar4;
+	char previus = 0;
 
-	if (number_elements != 0)
+	//se la flag è 0 fa questa operazione (in unpacker è sempre 0)
+	for (int i = 0; i <= buf[size]; i++)
 	{
-		if (just_zero != 0)
-		{
-			bVar4 = 0;
-			for(int i=0;i <= array_address[number_elements]; i++)
-			{
-				bVar4 = array_address[i] ^ bVar4;
-				*array_address = bVar4;
-			} 
-			return;
-		}
-		bVar4 = 0;
-		for(int i=0;i<= array_address[number_elements];i++)
-		{
 
-			*array_address = bVar4 ^ array_address[i];
-			bVar4 = array_address[i];
-		}
+		*buf = previus ^ buf[i];
+		previus = buf[i];
 	}
+
 	return;
 }

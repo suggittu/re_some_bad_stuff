@@ -99,15 +99,25 @@ Questo apk lo trovato in una cartella dentro la macchina virtuale fornita da un 
 Qualche riga di codice dopo a quella mostrata in figura chiama una funzione chiamata prepare\_entity
 dove cerca classes2.dex e lo copia in un nuovo file che ha appena creato. E successivamente lo decodifica, lascio qui sotto del codice da me scritto che rappresenta la logica della decodifica.
 
-\enlargethispage{20cm}
+\enlargethispage{5cm}
 \begin{figure}[H]
 	\hspace{0cm}
     \includegraphics[width=0.9\textwidth]{unpacker_unpack.png} 
     \label{fig:my_image}
 \end{figure}
 
+circle\_xor è abbastanza standart come codice qui sotto lascio una versione leggermente semplificata:
+\enlargethispage{20cm}
+\begin{figure}[H]
+	\hspace{0cm}
+    \includegraphics[width=0.9\textwidth]{circle_xor.png} 
+    \label{fig:my_image}
+\end{figure}
 
+Dopo la decodifica carica il dex rendendolo parte del codice dell'applicazione. Per capire quale sia il codice caricato bisogna trovare la chiave (key nel codice) la chiave è stata creata usando il certificato con cui è stata firmata l'applicazione a cui viene applicata una funzione hash presente in Java.util chiamata "hashCode" e del risultato di quest ultima si prendono gli 8 bit più significativi. Inoltre per l'estrazione dei dati nel dex utilizza sempre librerie presenti in Android 6.0 quindi ho evitato di vedere cosa faccia effettivamente visto che ormai il fatto che sia malevolo era abbastanza chiaro.
 
+\subsection{Spootigeek.apk}
+Questa applicazione che ho trovato cercando delle versioni di spotify gratis, era veramente troppo grande quindi avevo deciso di guardarla dentro un emulatore dove controllavo la rete per vedere a cosa provava a connettersi, tra cui prima cosa che ha fatto appena aperta è stata mandare infomazioni sul dispositivo molto generiche a un dominio insolito, mentre ho provato a registrarmi per ottenere il servizio gratis l'applicazione si è spenta e non sono riuscito più ad aprirla. Per comprendere il comportamento ho utilizzato l'analisi statica di MOBSF ,dal analisi risulta che contiene diversi elementi che hanno lo scopo principale di individuare se sia dentro un emulatore/macchina virtuale. Controlla Build.FINGERPRINT che è una stringa con diverse informazioni sul dispositivo, sistema operativo... e gli emulatori hanno dei valori fissi che vengono messi automaticante e che possono essere riconosciuti. Simile concetto per build.MODEL che contiente il nome del dispositivo, poi controlla l'operatore della sim che è sempre standard per quasi tutti emualatori, infine anche se questo è per anti debug controlla Debug.isDebuggerConnected() che è una funzione fornita da Android che dice se un debugger sia "attaccato" al processo dell' applicazione. Però ci sono altri modi per determinare se si è dentro un emulatore controllare gli ip o i MAC address con la stessa logica degli altri tipi di controllo ,oppure sio possono fare delle chiamate per controllare se esistono sul dispositivo alcuni tipi di sensori con la chiamata 'getDefaultSensor' e un normale emulatore potrebbe tornare null oppure avere valori fissi, oppure ancora si possono fare controlli sulla pressione del tocco che ovviamente in un dispositivo vero non dovrebbe passare da 0 a un valore immediatamente come succede se si facesse un click. Per risolvere tutti questi problemi per i controlli di questo tipo esistono molti script su frida, io ne ho usato qualcuno per bypassare SSL pinning fatto da molti servizi di google che non mi permetteva di interettare il traffico.
 \eject
 
 

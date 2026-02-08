@@ -14,15 +14,15 @@ void Java_ru_anna_chinagame_TJEjihIIS_rLAWCqQOc(_JNIEnv *env, _jclass *target_ob
     char *pcVar10;
     _jobject *chinagamedexElements;
     _jmethodID *exists_method;
-    _jobjectArray *p_Var13;
+    _jobjectArray *size;
 
     if (context == (_jobject *)0x0)
     {
         utils_throw_by_name(env, "java/lang/NullPointerException", "Context is null.");
         return;
     }
-    checkSignature(env, target_object, context);
-     //controla integrità dell apk (se è stato cambiato qualcosa termina)
+    unpacker_init(env, target_object, context);
+     //inializza il valore della chive usato dall'unpacker
      
     api_version = utils_get_sdk_version(env);
     class_of_context = (**(*env + 0xf8))(env, context);//NewObjectV
@@ -56,15 +56,15 @@ void Java_ru_anna_chinagame_TJEjihIIS_rLAWCqQOc(_JNIEnv *env, _jclass *target_ob
     {
         prepare_entity(env, context, chinagamedexElements); 
     }
-    p_Var13 = (_jobjectArray *)(**(code **)(*(long *)env + 0x560))(env, 1, io_File, chinagamedexElements);
+    size = (_jobjectArray *)(**(code **)(*(long *)env + 0x560))(env, 1, io_File, chinagamedexElements); //get_array_legth
     if (0x16 < api_version)
     {
-        installV23(env, target_object, ClassLoader, p_Var13, path_outdex);
+        installV23(env, target_object, ClassLoader, size, path_outdex);
         return;
     }
     if (0x12 < api_version)
     {
-        installV19(env, target_object, ClassLoader, p_Var13, path_outdex);
+        installV19(env, target_object, ClassLoader, size, path_outdex);
         return;
     }
     if (api_version < 0xe)
@@ -73,9 +73,9 @@ void Java_ru_anna_chinagame_TJEjihIIS_rLAWCqQOc(_JNIEnv *env, _jclass *target_ob
         {
             return;
         }
-        installV4(env, target_object, ClassLoader, p_Var13);
+        installV4(env, target_object, ClassLoader, size);
         return;
     }
-    installV14(env, target_object, ClassLoader, p_Var13, path_outdex);
+    installV14(env, target_object, ClassLoader, size, path_outdex);
     return;
 }
